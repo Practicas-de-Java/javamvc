@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<script type="text/javascript">
+			PrimeFaces.locales['es'] = {
+				closeText : 'Cerrar',
+				prevText : 'Anterior',
+				nextText : 'Siguiente',
+				monthNames : [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
+						'Junio', 'Julio', 'Agosto', 'Septembrie', 'Octubre',
+						'Noviembre', 'Diciembre' ],
+				monthNamesShort : [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+						'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+				dayNames : [ 'Domingo', 'Lunes', 'Martes', 'Miércoles',
+						'Jueves', 'Viernes', 'Sábado' ],
+				dayNamesShort : [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie',
+						'Sab' ],
+				dayNamesMin : [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
+				weekHeader : 'Semana',
+				FirstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : true,
+				yearSuffix : '',
+				timeOnlyTitle : 'Fecha',
+				timeText : 'Hora',
+				hourText : 'Hora',
+				minuteText : 'Minuto',
+				secondText : 'Segundo',
+				currentText : 'Fecha actual',
+				ampm : false,
+				month : 'Mes',
+				week : 'Semana',
+				day : 'Día',
+				allDayText : 'Día'
+			};
+		</script>
+	</h:head>
+	<h:body>
+		<h:form id="form">
+		<h:outputText value="#{dataExporterView.mensajesalUsuario}"></h:outputText><br/>
+		<p:growl id="growl" life="20000" />
+		<center>
+				<p:graphicImage name="/demo/images/headerLogo.jpg" /><br/>
+        	<h:panelGrid columns="2" cellpadding="10">
+			    <p:outputLabel>Desde   :</p:outputLabel><p:calendar id="popup100" value="#{dataExporterView.fechaDesde}" locale="es" navigator="true" pattern="yyyy-MM-dd" />
+			    <p:outputLabel>Hasta   :</p:outputLabel><p:calendar id="popup200" value="#{dataExporterView.fechaHasta}" locale="es" navigator="true" pattern="yyyy-MM-dd" />
+				<p:commandButton action="#{dataExporterView.generarBoletin}" value="Generar boletín" title="Generar boletín" ajax="false" style="width:100%;"></p:commandButton>
+				<p:commandButton actionListener="#{dataExporterView.volverAdministracion}" value="Volver a pantalla de administración" title="Volver a pantalla de administración" ajax="false" style="width:100%;"/>
+			</h:panelGrid>
+		    </center>
+		</h:form>
+	</h:body>
+</f:view>

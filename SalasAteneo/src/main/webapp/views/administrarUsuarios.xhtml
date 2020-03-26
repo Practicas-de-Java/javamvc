@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<style type="text/css">
+.ui-row-editor .ui-row-editor-pencil {
+	margin-left: 8px;
+}
+</style>
+	</h:head>
+	<h:body>
+		<h:form id="SalasAteneo">
+			<p:growl id="msgs" showDetail="true" life="10000" />
+			<center>
+				<p:graphicImage name="/demo/images/headerLogo.jpg" /><br/>
+				<p:outputLabel style="color:red;font-size:25px;">Nuevo usuario</p:outputLabel><br/>
+				<p:dataTable id="tbl4" var="usuario1"
+					value="#{dataExporterView.newUsuario}" style="margin-bottom:20px"
+					scrollable="true" editable="true">
+					<p:column headerText="Nombre usuario" style="width:15%;">
+						<h:inputText value="#{usuario1.nombre}" />
+					</p:column>
+					<p:column headerText="Mail" style="width:15%;">
+						<h:inputText value="#{usuario1.mail}" />
+					</p:column>
+					<p:column headerText="Contraseña" style="width:15%;">
+						<h:inputText value="#{usuario1.contrasenya}" />
+					</p:column>
+					<p:column headerText="Perfil" style="width:15%;">
+						<h:selectOneMenu
+							value="#{dataExporterView.currentPerfil.intperfil}"
+							style="width:100%">
+							<f:selectItems value="#{dataExporterView.perfiles}" var="man"
+								itemLabel="#{man.charperfil}" itemValue="#{man.intperfil}" />
+						</h:selectOneMenu>
+					</p:column>
+					<p:column style="width:10%;" headerText="Añadir usuario"
+						exportable="false">
+						<p:commandButton action="#{dataExporterView.nuevoUsuario}"
+							title="Añadir usuario" value="Añadir usuario" ajax="false"
+							style="width:100%;">
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<p:outputLabel style="color:red;font-size:25px;">Actualizar usuarios</p:outputLabel><br/>
+				<p:dataTable id="tbl5" var="usuario"
+					value="#{dataExporterView.usuarios}" editable="true"
+					rowKey="#{usuario.pkusuario}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters} {RowsPerPageDropdown}"
+					paginator="true" rows="10" rowsPerPageTemplate="5, 10, 20, 50, 100"
+					style="margin-bottom:20px" scrollable="true">
+
+					<f:facet name="{Exporters}">
+						<div style="float: right; padding-top: 5px;">
+							<h:commandLink>
+								<p:graphicImage name="/demo/images/excel.png" width="24" />
+								<p:dataExporter type="xls" target="tbl5" fileName="Usuarios" />
+							</h:commandLink>
+
+							<h:commandLink>
+								<p:graphicImage name="/demo/images/pdf.png" width="24" />
+								<p:dataExporter type="pdf" target="tbl5" fileName="Usuarios" />
+							</h:commandLink>
+						</div>
+					</f:facet>
+
+					<p:column headerText="Nombre del usuario"
+						sortBy="#{usuario.nombre}" filterBy="#{usuario.nombre}"
+						style="width:15%;">
+						<p:inputText value="#{usuario.nombre}"/>
+					</p:column>
+					<p:column headerText="Mail" sortBy="#{usuario.mail}"
+						filterBy="#{usuario.mail}" style="width:15%;">
+						<p:inputText value="#{usuario.mail}"/>
+					</p:column>
+					<p:column headerText="Contraseña" sortBy="#{usuario.contrasenya}"
+						filterBy="#{usuario.contrasenya}" style="width:15%;">
+						<p:inputText value="#{usuario.contrasenya}"/>
+					</p:column>
+					<p:column headerText="Perfil"
+						filterBy="#{usuario.perfil.charperfil}" style="width:15%;">
+						<p:selectOneMenu valueChangeListener="#{dataExporterView.cambiarPerfil(usuario.pkusuario)}" immediate="true"
+							value="#{usuario.perfil.charperfil}" style="width:100%">
+							<f:selectItems value="#{dataExporterView.perfiles}" var="man"
+								itemLabel="#{man.charperfil}" itemValue="#{man.charperfil}" />
+							<p:ajax></p:ajax>
+						</p:selectOneMenu>
+					</p:column>
+
+					<p:column style="width:10%;" exportable="false"
+						headerText="Borrar usuario">
+						<p:commandButton
+							actionListener="#{dataExporterView.borrarUsuario}" ajax="false"
+							value="Borrar usuario" title="Borrar usuario" update="tbl5"
+							style="width:100%;">
+							<f:attribute name="ide" value="#{usuario.pkusuario}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<h3>Exportar sólo lo que se ve</h3>
+				<h:commandLink>
+					<p:graphicImage name="/demo/images/excel.png" />
+					<p:dataExporter type="xls" target="tbl5" fileName="Usuarios"
+						pageOnly="true" />
+				</h:commandLink>
+
+				<h:commandLink>
+					<p:graphicImage name="/demo/images/pdf.png" />
+					<p:dataExporter type="pdf" target="tbl5" fileName="Usuarios"
+						pageOnly="true" />
+				</h:commandLink>
+				<br />
+				<p:commandButton
+					actionListener="#{dataExporterView.salvarUsuarioEditado}"
+					ajax="false" value="Actualizar usuarios cambiados" title="Actualizar usuarios cambiados"
+					update="tbl5" style="width:50%;">
+				</p:commandButton>
+
+				<p:commandButton actionListener="#{dataExporterView.volverAdministracion}"
+					title="Volver a pantalla de administración"
+					ajax="false" style="width:50%;"
+					value="Volver a pantalla de administración">
+				</p:commandButton>
+			</center>
+		</h:form>
+	</h:body>
+</f:view>

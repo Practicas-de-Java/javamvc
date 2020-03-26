@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form id="form">
+		<center>
+ 				<p:graphicImage name="/demo/images/headerLogo.jpg" /><br/>
+        <h:panelGrid columns="2" cellpadding="10">
+			    <p:outputLabel>Id   :</p:outputLabel><p:inputText value="#{dataExporterView.carDto.id}"></p:inputText>
+			    <p:outputLabel>Year :</p:outputLabel><p:inputText value="#{dataExporterView.carDto.year}"></p:inputText>
+			    <p:outputLabel>Brand:</p:outputLabel>
+                   	<h:selectOneMenu value="#{dataExporterView.carDto.brand}" style="width:100%">
+                    	<f:selectItems value="#{dataExporterView.brands}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+                	</h:selectOneMenu>
+			    <p:outputLabel>Color:</p:outputLabel>
+                	<h:selectOneMenu value="#{dataExporterView.carDto.color}" style="width:100%">
+                    	<f:selectItems value="#{dataExporterView.colors}" var="color" itemLabel="#{color}" itemValue="#{color}" />
+                    </h:selectOneMenu>
+			    <p:outputLabel>Price:</p:outputLabel><p:inputText value="#{dataExporterView.carDto.price}"></p:inputText>
+			    <p:outputLabel>Sold :</p:outputLabel><p:selectBooleanCheckbox value="#{dataExporterView.carDto.sold}"></p:selectBooleanCheckbox>
+		</h:panelGrid>
+					<p:commandButton actionListener="#{dataExporterView.nuevo}" value="Añadir" title="Añadir" ajax="true" style="width:5%;">
+ 						<f:attribute name="ide" value="#{dataExporterView.carDto.id}"/>
+						<f:attribute name="year" value="#{dataExporterView.carDto.year}"/>
+						<f:attribute name="brand" value="#{dataExporterView.carDto.brand}"/>
+						<f:attribute name="color" value="#{dataExporterView.carDto.color}"/>
+						<f:attribute name="price" value="#{dataExporterView.carDto.price}"/>
+						<f:attribute name="sold" value="#{dataExporterView.carDto.sold}"/>
+					</p:commandButton>
+		
+		    		<p:commandButton actionListener="#{dataExporterView.salvar}" value="Salvar" title="Salvar" ajax="true" style="width:5%;">
+ 						<f:attribute name="ide" value="#{dataExporterView.carDto.id}"/>
+						<f:attribute name="year" value="#{dataExporterView.carDto.year}"/>
+						<f:attribute name="brand" value="#{dataExporterView.carDto.brand}"/>
+						<f:attribute name="color" value="#{dataExporterView.carDto.color}"/>
+						<f:attribute name="price" value="#{dataExporterView.carDto.price}"/>
+						<f:attribute name="sold" value="#{dataExporterView.carDto.sold}"/>
+					</p:commandButton>
+		    		<p:commandButton actionListener="#{dataExporterView.volver}" value="Volver" title="Volver" ajax="false" style="width:5%;">
+					</p:commandButton>
+		    </center>
+		</h:form>
+	</h:body>
+</f:view>

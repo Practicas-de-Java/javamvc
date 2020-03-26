@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form id="form33">
+			<center>
+				<p:graphicImage name="/demo/images/headerLogo.jpg" /><br/>
+		    	<h:panelGrid columns="1" cellpadding="10" style="width:100%">
+				       	<h:outputText value="Título" style="color:red;font-size:15px;"></h:outputText>
+				       	<h:outputText value="#{dataExporterView.currentProspecto.titulo}" style="width:100%"></h:outputText>
+				       	<h:outputText value="Secciones/Agrupaciones/Cátedras convocantes" style="color:red;font-size:15px;"></h:outputText>
+				       	<h:outputText value="#{dataExporterView.currentProspecto.entidades}" style="width:100%"></h:outputText>
+				       	<h:outputText value="Ponentes" style="color:red;font-size:15px;"></h:outputText>
+				       	<h:outputText value="#{dataExporterView.currentProspecto.ponentes}" style="width:100%"></h:outputText>
+				       	<h:outputText value="Preside" style="color:red;font-size:15px;"></h:outputText>
+				       	<h:outputText value="#{dataExporterView.currentProspecto.preside}" style="width:100%"></h:outputText>
+				       	<h:outputText value="Modera" style="color:red;font-size:15px;"></h:outputText>
+				       	<h:outputText value="#{dataExporterView.currentProspecto.modera}" style="width:100%"></h:outputText>
+				       	<h:outputText value="Tipo de evento" style="color:red;font-size:15px;"></h:outputText>
+				       	<h:outputText value="#{dataExporterView.currentProspecto.tipoevento}" style="width:100%"></h:outputText>
+				       	<h:outputText value="Sala" style="color:red;font-size:15px;"></h:outputText>
+				       	<h:outputText value="#{dataExporterView.currentProspecto.sala}" style="width:100%"></h:outputText>
+				       	<h:outputText value="Fecha" style="color:red;font-size:15px;"></h:outputText>
+				       	<h:outputText value="#{dataExporterView.currentProspectoDate}" style="width:100%"></h:outputText>
+				       	<h:outputText value="Hora" style="color:red;font-size:15px;"></h:outputText>
+				       	<h:outputText value="#{dataExporterView.currentProspecto.fechahora}" style="width:100%"></h:outputText>
+				       	<h:outputText value="Resumen" style="color:red;font-size:15px;"></h:outputText>
+				       	<h:outputText rows="10" value="#{dataExporterView.currentProspecto.resumenevento}" style="width:100%"></h:outputText>
+						<h:outputText value="Necesidades técnicas y medios" style="color:red;font-size:15px;"></h:outputText>
+				       	<p:inputText value="#{dataExporterView.currentProspecto.equiposymedios}" style="width:100%"></p:inputText>
+				       	<h:outputText value="Número de asistentes" style="color:red;font-size:15px;"></h:outputText>
+				       	<p:inputText value="#{dataExporterView.currentProspecto.numeroasistentes}" style="width:100%"></p:inputText>
+				       	<h:outputText value="Datos de contacto" style="color:red;font-size:15px;"></h:outputText>
+				       	<p:inputText value="#{dataExporterView.currentProspecto.datoscontacto}" style="width:100%"></p:inputText>
+				       	<h:outputText value="Información adicional" style="color:red;font-size:15px;"></h:outputText>
+				       	<p:inputTextarea rows="10" value="#{dataExporterView.currentProspecto.otrosdatos}" style="width:100%"></p:inputTextarea>
+				       	<p:commandButton actionListener="#{dataExporterView.nuevoProspecto}" value="Guarda prospecto"
+							title="Guarda prospecto" ajax="false" style="width:100%;">
+						</p:commandButton>     	
+						<p:commandButton action="#{dataExporterView.salir}" value="Volver"
+							title="Volver" ajax="true" style="width:100%;" />
+		    	</h:panelGrid>
+			</center>
+		</h:form>
+	</h:body>
+</f:view>

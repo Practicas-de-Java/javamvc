@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form id="form">
+		<p:growl id="growl" life="20000" />
+		<center>
+		<p:graphicImage name="/demo/images/headerLogo.jpg" /><br/>
+        <h:panelGrid columns="2" cellpadding="10">
+				<p:commandButton action="#{dataExporterView.administrarPerfilUsuario}" value="Visor de perfiles disponibles de usuario" ajax="false" style="width:100%;"/>
+				<p:commandButton action="#{dataExporterView.administrarSalas}" value="Visor de salas disponibles" ajax="false" style="width:100%;"/>
+				<p:commandButton action="#{dataExporterView.administrarTipoReserva}" value="Visor de tipos de reservas disponibles" ajax="false" style="width:100%;"/>
+				<p:commandButton action="#{dataExporterView.administrarUsuario}" value="Administrar usuario" title="Administrar usuario" ajax="false" style="width:100%;"/>
+				<p:commandButton action="#{dataExporterView.administrarReservaEvento}" value="Eventos planificados" title="Eventos planificados" ajax="false" style="width:100%;"/>
+				<p:commandButton action="#{dataExporterView.pedirBoletin}" value="Pedir boletin" title="Pedir boletín" ajax="false" style="width:100%;"/>
+				<p:commandButton action="#{dataExporterView.salir}" value="Salir" title="Salir" ajax="false" style="width:100%;"/>	
+				<h:outputText value="Soporte avahiserrano@gmail.com" style="color:red;font-size:15px;"></h:outputText>			
+		</h:panelGrid>
+		    </center>
+		</h:form>
+	</h:body>
+</f:view>

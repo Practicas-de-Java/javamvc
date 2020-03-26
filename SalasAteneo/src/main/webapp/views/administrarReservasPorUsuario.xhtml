@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<script type="text/javascript">
+			PrimeFaces.locales['es'] = {
+				closeText : 'Cerrar',
+				prevText : 'Anterior',
+				nextText : 'Siguiente',
+				monthNames : [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
+						'Junio', 'Julio', 'Agosto', 'Septembrie', 'Octubre',
+						'Noviembre', 'Diciembre' ],
+				monthNamesShort : [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+						'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+				dayNames : [ 'Domingo', 'Lunes', 'Martes', 'Miércoles',
+						'Jueves', 'Viernes', 'Sábado' ],
+				dayNamesShort : [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie',
+						'Sab' ],
+				dayNamesMin : [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
+				weekHeader : 'Semana',
+				FirstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : true,
+				yearSuffix : '',
+				timeOnlyTitle : 'Fecha',
+				timeText : 'Hora',
+				hourText : 'Hora',
+				minuteText : 'Minuto',
+				secondText : 'Segundo',
+				currentText : 'Fecha actual',
+				ampm : false,
+				month : 'Mes',
+				week : 'Semana',
+				day : 'Día',
+				allDayText : 'Día'
+			};
+		</script>
+	</h:head>
+	<h:body>
+		<h:form id="SalasAteneo33">
+		<h:outputText value="#{dataExporterView.mensajesalUsuario}"></h:outputText><br/>
+		<p:growl id="msgs" showSummary="true" showDetail="true" keepAlive="true" life="60000">
+			<p:autoUpdate />
+		</p:growl>
+			<center>
+				<p:graphicImage name="/demo/images/headerLogo.jpg" /><br/>
+				<p:outputLabel style="color:red;font-size:25px;">Cambio de contraseña</p:outputLabel><br/>
+				<p:outputLabel>Contraseña antigua:</p:outputLabel><p:password id="contrasenya" value="#{dataExporterView.antiguaContrasenya}"/>
+				<p:outputLabel>Contraseña nueva:</p:outputLabel><p:password id="contrasenya1" value="#{dataExporterView.nuevaContrasenya}"/>
+				<p:outputLabel>Repita contraseña nueva:</p:outputLabel><p:password id="contrasenya2" value="#{dataExporterView.nuevaContrasenya2}"/>
+				<p:commandButton value="Cambiar" action="#{dataExporterView.cambiarContrasenya}" title="Cambiar contraseña" ajax="false" style="width:15%;"></p:commandButton><br/>
+				<p:outputLabel style="color:red;font-size:25px;">Nueva reserva</p:outputLabel><br/>
+				<p:dataTable id="tbl10" var="reserva1" resizableColumns="true"
+					value="#{dataExporterView.newReserva}" style="margin-bottom:20px"
+					scrollable="true" editable="true">
+					<p:column headerText="Titulo">
+						<h:inputText value="#{reserva1.titulo}" />
+					</p:column>
+					<p:column headerText="Ponente">
+						<h:inputText value="#{reserva1.ponente}" />
+					</p:column>
+					<p:column headerText="Fecha" style="width:12%">
+						<p:calendar id="popup1" value="#{reserva1.fechahora}" locale="es"
+							mindate="#{dataExporterView.minDate}"
+							maxdate="#{dataExporterView.maxDate}" navigator="true"
+							pattern="yyyy-MM-dd" />
+					</p:column>
+					<p:column headerText="17" style="width:2%">
+						<p:selectBooleanCheckbox value="#{reserva1.hora17}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="19" style="width:2%">
+						<p:selectBooleanCheckbox value="#{reserva1.hora19}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="19:30" style="width:2%">
+						<p:selectBooleanCheckbox value="#{reserva1.hora1930}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="Cancela" style="width:3%">
+						<p:selectBooleanCheckbox value="#{reserva1.cancelada}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="Comentario cancelación">
+						<h:inputText value="#{reserva1.comentariocancelacion}" />
+					</p:column>
+					<p:column headerText="Sala">
+						<h:selectOneMenu value="#{dataExporterView.currentSala.nombre}"
+							style="width:100%">
+							<f:selectItems value="#{dataExporterView.salasUsuario}" var="man"
+								itemLabel="#{man.nombre}" itemValue="#{man.nombre}" />
+						</h:selectOneMenu>
+					</p:column>
+					<p:column headerText="Tipo de reserva">
+						<h:selectOneMenu
+							value="#{dataExporterView.currentTipoReserva.chartipo}"
+							style="width:100%">
+							<f:selectItems value="#{dataExporterView.tiposReservaUsuario}"
+								var="man1" itemLabel="#{man1.chartipo}"
+								itemValue="#{man1.chartipo}" />
+						</h:selectOneMenu>
+					</p:column>
+					<p:column headerText="Añade" style="width:7%">
+						<p:commandButton actionListener="#{dataExporterView.nuevaReserva}" value="Añade"
+							update="msgs" title="Añade reserva" ajax="false"
+							style="width:100%;">
+							<f:attribute name="titulo" value="#{reserva1.titulo}" />
+							<f:attribute name="ponente" value="#{reserva1.ponente}" />
+							<f:attribute name="fecha" value="#{reserva1.fechahora}" />
+
+							<f:attribute name="hora17" value="#{reserva1.hora17}" />
+							<f:attribute name="hora19" value="#{reserva1.hora19}" />
+							<f:attribute name="hora1930" value="#{reserva1.hora1930}" />
+
+							<f:attribute name="cancelada" value="#{reserva1.cancelada}" />
+							<f:attribute name="comentariocancelacion"
+								value="#{reserva1.comentariocancelacion}" />
+
+							<f:attribute name="sala" value="#{reserva1.sala.nombre}" />
+							<f:attribute name="tiporeserva"
+								value="#{reserva1.tiporeserva.chartipo}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<p:outputLabel style="color:red;font-size:25px;">Actualizar reservas</p:outputLabel><br/>
+				<p:dataTable id="tbl11" var="reserva" rowIndexVar="rowId"
+					value="#{dataExporterView.reservasUsuarioConectado}"
+					editable="true" resizableColumns="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					paginator="true" rows="10" rowsPerPageTemplate="5, 10, 20, 50, 100"
+					style="margin-bottom:20px" scrollable="true">
+
+					<p:column headerText="Titulo" sortBy="#{reserva.titulo}"
+						filterBy="#{reserva.titulo}">
+						<h:inputText value="#{reserva.titulo}" />
+					</p:column>
+					<p:column headerText="Ponente" sortBy="#{reserva.ponente}"
+						filterBy="#{reserva.ponente}">
+						<h:inputText value="#{reserva.ponente}" />
+					</p:column>
+					<p:column headerText="Fecha" sortBy="#{reserva.fechahora}"
+						style="width:12%" filterBy="#{reserva.fechahora}">
+						<p:calendar id="popup1" value="#{reserva.fechahora}" locale="es"
+							mindate="#{dataExporterView.maxActualizacionDate}"
+							maxdate="#{dataExporterView.maxDate}" navigator="true"
+						    pattern="yyyy-MM-dd" />
+					</p:column>
+					<p:column headerText="17" sortBy="#{reserva.hora17}"
+						style="width:2%" filterBy="#{reserva.hora17}">
+						<p:selectBooleanCheckbox value="#{reserva.hora17}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="19" sortBy="#{reserva.hora19}"
+						style="width:2%" filterBy="#{reserva.hora19}">
+						<p:selectBooleanCheckbox value="#{reserva.hora19}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="19:30" sortBy="#{reserva.hora1930}"
+						style="width:2%" filterBy="#{reserva.hora1930}">
+						<p:selectBooleanCheckbox value="#{reserva.hora1930}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="Cancela" sortBy="#{reserva.cancelada}"
+						style="width:4%" filterBy="#{reserva.cancelada}">
+						<p:selectBooleanCheckbox value="#{reserva.cancelada}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="Comentario cancelación"
+						sortBy="#{reserva.comentariocancelacion}"
+						filterBy="#{reserva.comentariocancelacion}">
+						<h:inputText value="#{reserva.comentariocancelacion}" />
+					</p:column>
+					<p:column headerText="Sala" sortBy="#{reserva.sala.nombre}"
+						style="width:10%;" filterBy="#{reserva.sala.nombre}">
+						<br />
+						<p:selectOneMenu name="sala" inmediate="true" style="width:100%;">
+							<f:selectItem itemLabel="#{reserva.sala.nombre}"
+								itemValue="#{reserva.sala.nombre}"></f:selectItem>
+							<f:selectItems value="#{dataExporterView.salasUsuario}" var="man3"
+								itemLabel="#{man3.nombre}" itemValue="#{man3.nombre}" />
+							<p:ajax></p:ajax>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column headerText="Tipo reserva" style="width:15%;"
+						sortBy="#{reserva.tiporeserva.chartipo}"
+						filterBy="#{reserva.tiporeserva.chartipo}">
+						<p:selectOneMenu name="tipoReserva" style="width:100%;"
+							inmediate="true">
+							<f:selectItem itemLabel="#{reserva.tiporeserva.chartipo}"
+								itemValue="#{reserva.tiporeserva.chartipo}"></f:selectItem>
+							<f:selectItems value="#{dataExporterView.tiposReservaUsuario}"
+								var="man4" itemLabel="#{man4.chartipo}"
+								itemValue="#{man4.chartipo}" />
+							<p:ajax></p:ajax>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column exportable="false" headerText="Actualiza"
+						style="width:5%">
+						<p:commandButton
+							actionListener="#{dataExporterView.salvarReservaEditada}"
+							update="tbl11" title="Actualiza" value="Actualiza" ajax="false"
+							style="width:100%;">
+							<f:attribute name="ide" value="${reserva.pkreserva}" />
+						</p:commandButton>
+					</p:column>
+					<p:column exportable="false" headerText="Borra" style="width:5%">
+						<p:commandButton
+							actionListener="#{dataExporterView.borrarReservaUsuario}" title="Borra" value="Borra"
+							update="tbl11" style="width:100%;">
+							<f:attribute name="ide" value="#{reserva.pkreserva}" />
+						</p:commandButton>
+					</p:column>
+					<p:column exportable="false" headerText="Prospecto" style="width:6%">
+						<p:commandButton actionListener="#{dataExporterView.editaProspecto}" title="Prospecto" value="Prospecto"
+							update="tbl11" style="width:100%;">
+							<f:attribute name="ide" value="#{reserva.pkreserva}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<p:outputLabel style="color:red;font-size:25px;">Reservas ocupadas</p:outputLabel><br/>
+				<p:dataTable id="tbl21" var="reserva" rowIndexVar="rowId"
+					value="#{dataExporterView.reservasPorFechaAsc}"
+					resizableColumns="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					paginator="true" rows="10" rowsPerPageTemplate="5, 10, 20, 50, 100"
+					style="margin-bottom:20px" scrollable="true">
+
+					<p:column headerText="Titulo" sortBy="#{reserva.titulo}"
+						filterBy="#{reserva.titulo}">
+						<h:outputText value="#{reserva.titulo}" />
+					</p:column>
+					<p:column headerText="Ponente" sortBy="#{reserva.ponente}"
+						filterBy="#{reserva.ponente}">
+						<h:outputText value="#{reserva.ponente}" />
+					</p:column>
+					<p:column headerText="Fecha" sortBy="#{reserva.fechahora}"
+						style="width:4%" filterBy="#{reserva.fechahora}">
+						<h:outputText value="#{reserva.fechahora}" />
+					</p:column>
+					<p:column headerText="17" sortBy="#{reserva.hora17}"
+						style="width:2%" filterBy="#{reserva.hora17}">
+						<h:outputText value="#{reserva.hora17}" />
+					</p:column>
+					<p:column headerText="19" sortBy="#{reserva.hora19}"
+						style="width:2%" filterBy="#{reserva.hora19}">
+						<h:outputText value="#{reserva.hora19}" />
+					</p:column>
+					<p:column headerText="19:30" sortBy="#{reserva.hora1930}"
+						style="width:2%" filterBy="#{reserva.hora1930}">
+						<h:outputText value="#{reserva.hora1930}" />
+					</p:column>
+					<p:column headerText="Cancela" sortBy="#{reserva.cancelada}"
+						style="width:4%" filterBy="#{reserva.cancelada}">
+						<h:outputText value="#{reserva.cancelada}" />
+					</p:column>
+					<p:column headerText="Comentario cancelación"
+						sortBy="#{reserva.comentariocancelacion}"
+						filterBy="#{reserva.comentariocancelacion}">
+						<h:outputText value="#{reserva.comentariocancelacion}" />
+					</p:column>
+					<p:column headerText="Sala" sortBy="#{reserva.sala.nombre}"
+						filterBy="#{reserva.sala.nombre}">
+						<h:outputText value="#{reserva.sala.nombre}"></h:outputText>
+						<br />
+					</p:column>
+					<p:column headerText="Tipo reserva"
+						sortBy="#{reserva.tiporeserva.chartipo}"
+						filterBy="#{reserva.tiporeserva.chartipo}">
+						<h:outputText value="#{reserva.tiporeserva.chartipo}"></h:outputText>
+						<br />
+					</p:column>
+					<p:column headerText="Usuario" sortBy="#{reserva.usuario.nombre}"
+						filterBy="#{reserva.usuario.nombre}">
+						<h:outputText value="#{reserva.usuario.nombre}"></h:outputText>
+						<br />
+					</p:column>
+				</p:dataTable>
+				<p:commandButton action="#{dataExporterView.salir}" value="Salir"
+					title="Salir" ajax="true" style="width:20%;" />
+			</center>
+		</h:form>
+	</h:body>
+</f:view>

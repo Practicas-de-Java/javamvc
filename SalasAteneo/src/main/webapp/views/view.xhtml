@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form id="SalasAteneo">
+		    <p:growl id="msgs" showDetail="true"/>
+		    <center>
+		    	<p:dataTable id="tbl1" var="car" value="#{dataExporterView.car}" style="margin-bottom:20px" scrollable="true">
+		    
+				<p:column headerText="Id" style="width:15%;">
+							<h:inputText value="#{car.id}"/>
+				</p:column>
+
+				<p:column headerText="Year" style="width:15%;">
+							<h:inputText value="#{car.year}"/>
+				</p:column>
+
+				<p:column headerText="Brand" style="width:15%;">
+                    		<h:selectOneMenu value="#{car.brand}" style="width:100%">
+                        		<f:selectItems value="#{dataExporterView.brands}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+                   		 	</h:selectOneMenu>
+				</p:column>
+
+				<p:column headerText="Color" style="width:15%;">
+                    		<h:selectOneMenu value="#{car.color}" style="width:100%">
+                        		<f:selectItems value="#{dataExporterView.colors}" var="color" itemLabel="#{color}" itemValue="#{color}" />
+                    		</h:selectOneMenu>
+				</p:column>
+				<p:column headerText="Price" style="width:15%;">
+							<h:inputText value="#{car.price}"/>
+				</p:column>
+				<p:column headerText="Sold" style="width:15%;">
+							<p:selectBooleanCheckbox value="#{car.sold}"></p:selectBooleanCheckbox>
+				</p:column>
+				<p:column style="width:10%;" headerText="Formulario" exportable="false">
+					<p:commandButton actionListener="#{dataExporterView.formulario}" title="Formulario" icon="pi-plus-circle" ajax="false" style="width:20%;">
+						<f:attribute name="ide" value="#{car.id}"/>
+					</p:commandButton>
+				</p:column>
+				<p:column style="width:10%;" headerText="Añadir">
+					<p:commandButton actionListener="#{dataExporterView.nuevo}" title="Añadir" icon="pi-plus-circle" ajax="false" style="width:20%;">
+ 						<f:attribute name="ide" value="#{car.id.toString()}"/>
+						<f:attribute name="year" value="#{car.year.toString()}"/>
+						<f:attribute name="brand" value="#{car.brand.toString()}"/>
+						<f:attribute name="color" value="#{car.color.toString()}"/>
+						<f:attribute name="price" value="#{car.price.toString()}"/>
+						<f:attribute name="sold" value="#{car.sold.toString()}"/>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		    
+			<p:dataTable id="tbl" var="car" value="#{dataExporterView.cars}" editable="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters} {RowsPerPageDropdown}"
+				paginator="true" rows="5" rowsPerPageTemplate="5,10,20,50,100" style="margin-bottom:20px" scrollable="true">
+                		    
+				<f:facet name="{Exporters}">
+					<div style="float: right; padding-top: 5px;">
+						<h:commandLink>
+							<p:graphicImage name="/demo/images/excel.png" width="24" />
+							<p:dataExporter type="xls" target="tbl" fileName="cars" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage name="/demo/images/pdf.png" width="24" />
+							<p:dataExporter type="pdf" target="tbl" fileName="cars" />
+						</h:commandLink>
+					</div>
+				</f:facet>
+
+				<p:column headerText="Id" sortBy="#{car.id}" filterBy="#{car.id}" style="width:15%;">
+							<p:cellEditor>
+                				<f:facet name="output"><h:outputText value="#{car.id}" /></f:facet>
+                				<f:facet name="input"><p:inputText id="modelInput1" value="#{car.id}" style="width:100%"/></f:facet>
+            				</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Year" sortBy="#{car.year}" filterBy="#{car.year}" style="width:15%;">
+							<p:cellEditor>
+                				<f:facet name="output"><h:outputText value="#{car.year}" /></f:facet>
+                				<f:facet name="input"><p:inputText id="modelInput2" value="#{car.year}" style="width:100%"/></f:facet>
+            				</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Brand" sortBy="#{car.brand}" filterBy="#{car.brand}" style="width:15%;">
+            		<p:cellEditor>
+                		<f:facet name="output"><h:outputText value="#{car.brand}" /></f:facet>
+                		<f:facet name="input">
+                    		<h:selectOneMenu value="#{car.brand}" style="width:100%">
+                        		<f:selectItems value="#{dataExporterView.brands}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+                   		 	</h:selectOneMenu>
+                		</f:facet>
+            		</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Color" sortBy="#{car.color}" filterBy="#{car.color}" style="width:15%;">
+            		<p:cellEditor>
+                		<f:facet name="output"><h:outputText value="#{car.color}" /></f:facet>
+                		<f:facet name="input">
+                    		<h:selectOneMenu value="#{car.color}" style="width:100%">
+                        		<f:selectItems value="#{dataExporterView.colors}" var="color" itemLabel="#{color}" itemValue="#{color}" />
+                    		</h:selectOneMenu>
+                		</f:facet>
+            		</p:cellEditor>				
+            	</p:column>
+            	
+				<p:column headerText="Price" sortBy="#{car.price}" filterBy="#{car.price}" style="width:15%;">
+							<p:cellEditor>
+                				<f:facet name="output"><h:outputText value="#{car.price}" /></f:facet>
+                				<f:facet name="input"><p:inputText id="modelInput3" value="#{car.price}" style="width:100%"/></f:facet>
+            				</p:cellEditor>
+				</p:column>
+				<p:column headerText="Sold" sortBy="#{car.sold}" filterBy="#{car.sold}" style="width:15%;">
+							<p:cellEditor>
+                				<f:facet name="output"><p:selectBooleanCheckbox value="#{car.sold}" /></f:facet>
+                				<f:facet name="input"><p:selectBooleanCheckbox id="modelInput4" value="#{car.sold}" style="width:100%"/></f:facet>
+            				</p:cellEditor>
+				</p:column>
+				<p:column style="width:10%;" headerText="Formulario" exportable="false">
+					<p:commandButton actionListener="#{dataExporterView.formulario}" title="Formulario" icon="pi-plus-circle" ajax="false" style="width:20%;">
+						<f:attribute name="ide" value="#{car.id}"/>
+					</p:commandButton>
+				</p:column>				
+				<p:column style="width:10%;" exportable="false" headerText="Editar">
+					<p:rowEditor editTitle="Editar" saveTitle="Salvar" style="width:50%;height:50%;"/>
+				</p:column>
+				<p:column style="width:10%;" exportable="false" headerText="Borrar">
+					<p:commandButton actionListener="#{dataExporterView.borrar}" icon="ui-icon-close" title="Borrar" update="tbl" style="width:10%;">
+						<f:attribute name="ide" value="#{car.id}"/>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			</center>
+			<h3>Export Page Data Only</h3>
+			<h:commandLink>
+				<p:graphicImage name="/demo/images/excel.png" />
+				<p:dataExporter type="xls" target="tbl" fileName="cars"
+					pageOnly="true" />
+			</h:commandLink>
+
+			<h:commandLink>
+				<p:graphicImage name="/demo/images/pdf.png" />
+				<p:dataExporter type="pdf" target="tbl" fileName="cars"
+					pageOnly="true" />
+			</h:commandLink>
+
+		</h:form>
+	</h:body>
+</f:view>

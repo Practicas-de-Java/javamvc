@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<script type="text/javascript">
+			PrimeFaces.locales['es'] = {
+				closeText : 'Cerrar',
+				prevText : 'Anterior',
+				nextText : 'Siguiente',
+				monthNames : [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
+						'Junio', 'Julio', 'Agosto', 'Septembrie', 'Octubre',
+						'Noviembre', 'Diciembre' ],
+				monthNamesShort : [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+						'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+				dayNames : [ 'Domingo', 'Lunes', 'Martes', 'Miércoles',
+						'Jueves', 'Viernes', 'Sábado' ],
+				dayNamesShort : [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie',
+						'Sab' ],
+				dayNamesMin : [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
+				weekHeader : 'Semana',
+				FirstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : true,
+				yearSuffix : '',
+				timeOnlyTitle : 'Fecha',
+				timeText : 'Hora',
+				hourText : 'Hora',
+				minuteText : 'Minuto',
+				secondText : 'Segundo',
+				currentText : 'Fecha actual',
+				ampm : false,
+				month : 'Mes',
+				week : 'Semana',
+				day : 'Día',
+				allDayText : 'Día'
+			};
+		</script>
+	</h:head>
+	<h:body>
+		<h:form id="SalasAteneo2">
+			<p:growl id="msgs" showDetail="true" />
+			<center>
+				<p:graphicImage name="/demo/images/headerLogo.jpg" /><br/>
+				<p:outputLabel style="color:red;font-size:25px;">Nueva reserva</p:outputLabel><br/>
+				<p:dataTable id="tbl10" var="reserva1" resizableColumns="true"
+					value="#{dataExporterView.newReserva}" style="margin-bottom:20px"
+					scrollable="true" editable="true">
+					<p:column headerText="Titulo">
+						<h:inputText value="#{reserva1.titulo}" />
+					</p:column>
+					<p:column headerText="Ponente">
+						<h:inputText value="#{reserva1.ponente}" />
+					</p:column>
+					<p:column headerText="Fecha" style="width:4%">
+						<p:calendar id="popup1" value="#{reserva1.fechahora}" locale="es"
+							navigator="true" pattern="yyyy-MM-dd" />
+					</p:column>
+					<p:column headerText="17" style="width:2%">
+						<p:selectBooleanCheckbox value="#{reserva1.hora17}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="19" style="width:2%">
+						<p:selectBooleanCheckbox value="#{reserva1.hora19}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="19:30" style="width:2%">
+						<p:selectBooleanCheckbox value="#{reserva1.hora1930}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="Cancela" style="width:3%">
+						<p:selectBooleanCheckbox value="#{reserva1.cancelada}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="Comentario cancelación">
+						<h:inputText value="#{reserva1.comentariocancelacion}" />
+					</p:column>
+					<p:column headerText="Sala">
+						<h:selectOneMenu value="#{dataExporterView.currentSala.nombre}"
+							style="width:100%">
+							<f:selectItems value="#{dataExporterView.salas}" var="man"
+								itemLabel="#{man.nombre}" itemValue="#{man.nombre}" />
+						</h:selectOneMenu>
+					</p:column>
+					<p:column headerText="Tipo de reserva">
+						<h:selectOneMenu
+							value="#{dataExporterView.currentTipoReserva.chartipo}"
+							style="width:100%">
+							<f:selectItems value="#{dataExporterView.tiposReserva}"
+								var="man1" itemLabel="#{man1.chartipo}"
+								itemValue="#{man1.chartipo}" />
+						</h:selectOneMenu>
+					</p:column>
+					<p:column headerText="Usuario">
+						<h:selectOneMenu value="#{dataExporterView.currentUsuario.nombre}"
+							style="width:100%">
+							<f:selectItems value="#{dataExporterView.usuarios}" var="man2"
+								itemLabel="#{man2.nombre}" itemValue="#{man2.nombre}" />
+						</h:selectOneMenu>
+					</p:column>
+					<p:column headerText="Añade" style="width:7%">
+						<p:commandButton actionListener="#{dataExporterView.nuevaReserva}" value="Añade"
+							title="Añade reserva" ajax="false" style="width:100%;">
+							<f:attribute name="titulo" value="#{reserva1.titulo}" />
+							<f:attribute name="ponente" value="#{reserva1.ponente}" />
+							<f:attribute name="fecha" value="#{reserva1.fechahora}" />
+
+							<f:attribute name="hora17" value="#{reserva1.hora17}" />
+							<f:attribute name="hora19" value="#{reserva1.hora19}" />
+							<f:attribute name="hora1930" value="#{reserva1.hora1930}" />
+
+							<f:attribute name="cancelada" value="#{reserva1.cancelada}" />
+							<f:attribute name="comentariocancelacion"
+								value="#{reserva1.comentariocancelacion}" />
+
+							<f:attribute name="sala" value="#{reserva1.sala.nombre}" />
+							<f:attribute name="tiporeserva"
+								value="#{reserva1.tiporeserva.chartipo}" />
+							<f:attribute name="usuario" value="#{reserva1.usuario.nombre}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<h:panelGrid columns="6" cellpadding="10">
+					<p:commandButton action="#{dataExporterView.ordenarTítulos}"
+						value="Ordenar títulos" title="Ordenar títulos alfabéticamente"
+						ajax="false" style="width:100%;" />
+					<p:commandButton action="#{dataExporterView.ordenarPonentes}"
+						value="Ordenar ponentes" title="Ordenar ponentes alfabéticamente"
+						ajax="false" style="width:100%;" />
+					<p:commandButton action="#{dataExporterView.ordenarFechas}"
+						value="Ordenar fechas en orden descendente" ajax="false"
+						style="width:100%;" />
+					<p:commandButton action="#{dataExporterView.ordenarSalas}"
+						value="Ordenar salas" title="Ordenar salas alfabéticamente"
+						ajax="false" style="width:100%;" />
+					<p:commandButton action="#{dataExporterView.ordenarTipos}"
+						value="Ordenar tipos" title="Ordenar tipos alfabéticamente"
+						ajax="false" style="width:100%;" />
+					<p:commandButton action="#{dataExporterView.ordenarUsuarios}"
+						value="Ordenar usuarios" title="Ordenar usuarios alfabéticamente"
+						ajax="false" style="width:100%;" />
+				</h:panelGrid>
+				<p:outputLabel style="color:red;font-size:25px;">Actualizar reservas</p:outputLabel><br/>
+				<p:dataTable id="tbl11" var="reserva" rowIndexVar="rowId"
+					value="#{dataExporterView.reservas}" editable="true"
+					resizableColumns="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters} {RowsPerPageDropdown}"
+					paginator="true" rows="10" rowsPerPageTemplate="5, 10, 20, 50, 100"
+					style="margin-bottom:20px" scrollable="true">
+
+					<f:facet name="{Exporters}">
+						<div style="float: right; padding-top: 5px;">
+							<h:commandLink>
+								<p:graphicImage name="/demo/images/excel.png" width="24" />
+								<p:dataExporter type="xls" target="tbl11" fileName="reservas" />
+							</h:commandLink>
+
+							<h:commandLink>
+								<p:graphicImage name="/demo/images/pdf.png" width="24" />
+								<p:dataExporter type="pdf" target="tbl11" fileName="reservas" />
+							</h:commandLink>
+						</div>
+					</f:facet>
+
+					<p:column headerText="Titulo" sortBy="#{reserva.titulo}" style="width:15%;"
+						filterBy="#{reserva.titulo}">
+						<h:inputText value="#{reserva.titulo}" />
+					</p:column>
+					<p:column headerText="Ponente" sortBy="#{reserva.ponente}" style="width:15%;"
+						filterBy="#{reserva.ponente}">
+						<h:inputText value="#{reserva.ponente}" />
+					</p:column>
+					<p:column headerText="Fecha" sortBy="#{reserva.fechahora}"
+						style="width:7%" filterBy="#{reserva.fechahora}">
+						<p:calendar id="popup1" value="#{reserva.fechahora}" locale="es"
+							navigator="true" pattern="yyyy-MM-dd" />
+					</p:column>
+					<p:column headerText="17" sortBy="#{reserva.hora17}"
+						style="width:2%" filterBy="#{reserva.hora17}">
+						<p:selectBooleanCheckbox value="#{reserva.hora17}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="19" sortBy="#{reserva.hora19}"
+						style="width:2%" filterBy="#{reserva.hora19}">
+						<p:selectBooleanCheckbox value="#{reserva.hora19}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="19:30" sortBy="#{reserva.hora1930}"
+						style="width:2%" filterBy="#{reserva.hora1930}">
+						<p:selectBooleanCheckbox value="#{reserva.hora1930}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="Cancela" sortBy="#{reserva.cancelada}"
+						style="width:4%" filterBy="#{reserva.cancelada}">
+						<p:selectBooleanCheckbox value="#{reserva.cancelada}"></p:selectBooleanCheckbox>
+					</p:column>
+					<p:column headerText="Comentario cancelación" style="width:15%;"
+						sortBy="#{reserva.comentariocancelacion}"
+						filterBy="#{reserva.comentariocancelacion}">
+						<h:inputText value="#{reserva.comentariocancelacion}" />
+					</p:column>
+					<p:column headerText="Sala" sortBy="#{reserva.sala.nombre}" style="width:10%;"
+						filterBy="#{reserva.sala.nombre}">
+						<p:selectOneMenu name="sala" inmediate="true" style="width:100%;">
+							<f:selectItem itemLabel="#{reserva.sala.nombre}"
+								itemValue="#{reserva.sala.nombre}"></f:selectItem>
+							<f:selectItems value="#{dataExporterView.salas}" var="man3"
+								itemLabel="#{man3.nombre}" itemValue="#{man3.nombre}" />
+							<p:ajax></p:ajax>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column headerText="Tipo reserva" style="width:10%;"
+						sortBy="#{reserva.tiporeserva.chartipo}"
+						filterBy="#{reserva.tiporeserva.chartipo}">
+						<p:selectOneMenu name="tipoReserva" style="width:100%;"
+							inmediate="true">
+							<f:selectItem itemLabel="#{reserva.tiporeserva.chartipo}"
+								itemValue="#{reserva.tiporeserva.chartipo}"></f:selectItem>
+							<f:selectItems value="#{dataExporterView.tiposReserva}"
+								var="man4" itemLabel="#{man4.chartipo}"
+								itemValue="#{man4.chartipo}" />
+							<p:ajax></p:ajax>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column headerText="Usuario" sortBy="#{reserva.usuario.nombre}" style="width:10%;"
+						filterBy="#{reserva.usuario.nombre}">
+						<p:selectOneMenu name="usuario" style="width:100%;"
+							inmediate="true">
+							<f:selectItem itemLabel="#{reserva.usuario.nombre}"
+								itemValue="#{reserva.usuario.nombre}"></f:selectItem>
+							<f:selectItems value="#{dataExporterView.usuarios}" var="man5"
+								itemLabel="#{man5.nombre}" itemValue="#{man5.nombre}" />
+							<p:ajax></p:ajax>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column exportable="false" headerText="Actualiza"
+						style="width:5%">
+						<p:commandButton
+							actionListener="#{dataExporterView.salvarReservaEditada}"
+							update="tbl11" title="Actualiza" value="Actualiza" ajax="false"
+							style="width:100%;">
+							<f:attribute name="ide" value="${reserva.pkreserva}" />
+						</p:commandButton>
+					</p:column>
+					<p:column exportable="false" headerText="Borra" style="width:4%">
+						<p:commandButton
+							actionListener="#{dataExporterView.borrarReserva}" title="Borra" value="Borra"
+							update="tbl11" style="width:100%;">
+							<f:attribute name="ide" value="#{reserva.pkreserva}" />
+						</p:commandButton>
+					</p:column>
+					<p:column exportable="false" headerText="Prospecto"
+						style="width:6%">
+						<p:commandButton actionListener="#{dataExporterView.editaProspecto}" title="Prospecto" value="Prospecto"
+							update="tbl11" style="width:100%;">
+							<f:attribute name="ide" value="#{reserva.pkreserva}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<h3>Exportar sólo lo que se ve</h3>
+				<h:commandLink>
+					<p:graphicImage name="/demo/images/excel.png" />
+					<p:dataExporter type="xls" target="tbl11" fileName="Salas"
+						pageOnly="true" />
+				</h:commandLink>
+
+				<h:commandLink>
+					<p:graphicImage name="/demo/images/pdf.png" />
+					<p:dataExporter type="pdf" target="tbl11" fileName="Salas"
+						pageOnly="true" />
+				</h:commandLink>
+				<br />
+
+				<p:commandButton actionListener="#{dataExporterView.volverAdministracion}"
+					title="Volver a pantalla de administración" ajax="false"
+					style="width:20%;" value="Volver a pantalla de administración">
+				</p:commandButton>
+			</center>
+		</h:form>
+	</h:body>
+</f:view>
