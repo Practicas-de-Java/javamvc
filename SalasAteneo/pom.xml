@@ -11,7 +11,7 @@
 	<version>1</version>
 	<properties>
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>
-		<spring.framework.version>5.2.3.RELEASE</spring.framework.version>
+		<spring.framework.version>5.2.20.RELEASE</spring.framework.version>
 	</properties>
 	<build>
 		<plugins>
